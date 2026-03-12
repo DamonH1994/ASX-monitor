@@ -57,7 +57,7 @@ def fetch_all_price_sensitive():
             "itemsPerPage":      ITEMS_PER_PAGE,
             "summaryCountsDate": TODAY_STR,
             "includeFacets":     "true",
-            "isPriceSensitive":  "true",   # filter to price sensitive only
+            # no server-side filter — we filter client-side using isPriceSensitive field
         }
         try:
             r = requests.get(MARKIT_BASE, params=params, headers=HEADERS, timeout=30)
@@ -71,18 +71,31 @@ def fetch_all_price_sensitive():
             items = data.get("data", {}).get("items", [])
             total = data.get("data", {}).get("announcementCount") or data.get("data", {}).get("total") or 0
 
+            # Extract total from various possible fields
+            top = data.get("data", {})
+            total = (top.get("announcementCount")
+                     or top.get("total")
+                     or top.get("totalCount")
+                     or top.get("count")
+                     or 0)
+
             if page == 0:
-                print(f"  → Total announcements today: {total}")
+                # Print all top-level keys so we can see the real structure
+                print(f"  → data keys: {list(top.keys())}")
+                print(f"  → Total field value: {total}")
 
             if not items:
                 print(f"  → No more items on page {page}, done.")
                 break
 
             all_items.extend(items)
-            print(f"  → Got {len(items)} items (running total: {len(all_items)})")
+            ps_so_far = sum(1 for i in all_items if i.get("isPriceSensitive"))
+            print(f"  → Page {page}: {len(items)} items ({ps_so_far} price sensitive so far, {len(all_items)} total fetched)")
 
-            # Stop if we've collected everything
-            if len(all_items) >= total or len(items) < ITEMS_PER_PAGE:
+            # Stop if we have fetched everything
+            if total and len(all_items) >= total:
+                break
+            if len(items) < ITEMS_PER_PAGE:
                 break
 
             page += 1
