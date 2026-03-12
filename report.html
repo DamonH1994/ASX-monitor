@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASX Price Sensitive Announcements — Thursday 12 March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--border:#1e2d45;
+  --blue:#3b82f6;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--cyan:#06b6d4;--purple:#8b5cf6;
+  --text:#e2e8f0;--dim:#64748b;--mid:#94a3b8;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 60px}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.header-left h1{font-size:22px;font-weight:600;letter-spacing:-.3px}
+.header-left h1 span{color:var(--blue)}
+.header-left .subtitle{font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:4px}
+.header-right{text-align:right}
+.gen-time{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.stats{display:flex;gap:24px;margin-top:8px;flex-wrap:wrap}
+.stat{text-align:right}
+.stat-val{font-family:var(--mono);font-size:18px;font-weight:500}
+.stat-val.blue{color:var(--cyan)} .stat-val.green{color:var(--green)} .stat-val.amber{color:var(--amber)}
+.stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+
+.sector-row{padding:14px 40px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sector-row-label{font-family:var(--mono);font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+.sector-pill{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:#a78bfa;font-size:11px;font-family:var(--mono);padding:3px 10px;border-radius:3px}
+.sector-pill strong{color:var(--text)}
+
+.controls{padding:14px 40px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface)}
+.search{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-family:var(--sans);font-size:13px;color:var(--text);outline:none;flex:1;min-width:200px;transition:border-color .15s}
+.search:focus{border-color:var(--blue)}
+.search::placeholder{color:var(--dim)}
+select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:12px;color:var(--text);outline:none;cursor:pointer}
+select:focus{border-color:var(--blue)}
+.count-label{font-family:var(--mono);font-size:11px;color:var(--dim);margin-left:auto}
+
+.table-wrap{overflow-x:auto;padding:0 40px}
+table{width:100%;border-collapse:collapse;margin-top:0;min-width:800px}
+thead tr{background:var(--surface);border-bottom:2px solid var(--border)}
+th{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);padding:12px 12px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--blue)}
+tbody tr{border-bottom:1px solid rgba(30,45,69,.5);transition:background .1s;cursor:pointer}
+tbody tr:hover{background:rgba(59,130,246,.05)}
+td{padding:12px 12px;vertical-align:middle}
+.td-ticker{font-family:var(--mono);font-weight:500;color:var(--cyan);font-size:14px;white-space:nowrap}
+.td-company{max-width:200px}
+.company-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.company-industry{font-size:11px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mktcap{font-family:var(--mono);font-size:12px;white-space:nowrap}
+.mktcap.large{color:var(--green)} .mktcap.mid{color:var(--amber)} .mktcap.small{color:var(--mid)} .mktcap.micro{color:var(--dim)}
+.sector-badge{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.2);color:#a78bfa;font-size:10px;font-family:var(--mono);padding:3px 8px;border-radius:3px;white-space:nowrap;display:inline-block}
+.td-price{font-family:var(--mono);font-size:12px;white-space:nowrap;text-align:right}
+.chg.pos{color:var(--green);font-size:11px} .chg.neg{color:var(--red);font-size:11px}
+.td-headline a{color:var(--text);text-decoration:none;font-size:13px;line-height:1.4}
+.td-headline a:hover{color:var(--blue)}
+.pages{background:rgba(100,116,139,.1);color:var(--dim);font-size:10px;font-family:var(--mono);padding:2px 6px;border-radius:3px;margin-left:8px}
+.td-time{font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap}
+.empty{text-align:center;padding:60px;color:var(--dim);font-family:var(--mono);font-size:13px}
+footer{text-align:center;padding:30px;font-family:var(--mono);font-size:11px;color:var(--dim);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:768px){header,.sector-row,.controls,.table-wrap{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <h1><span>ASX</span> Price Sensitive Announcements</h1>
+    <div class="subtitle">Thursday 12 March 2026 · Enriched with market cap &amp; sector data</div>
+  </div>
+  <div class="header-right">
+    <div class="gen-time">Generated 2:58 PM AEST</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-val blue">0</div><div class="stat-label">Announcements</div></div>
+      <div class="stat"><div class="stat-val green">0</div><div class="stat-label">Enriched</div></div>
+      <div class="stat"><div class="stat-val amber">0</div><div class="stat-label">Sectors</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sector-row">
+  <span class="sector-row-label">Sectors</span>
+  <span style="color:var(--dim);font-size:12px">No sector data available</span>
+</div>
+
+<div class="controls">
+  <input class="search" id="search" placeholder="Search ticker, company, headline…" oninput="filterTable()">
+  <select id="sector-filter" onchange="filterTable()">
+    <option value="">All Sectors</option>
+    
+  </select>
+  <select id="sort-select" onchange="sortTable()">
+    <option value="time-desc">Time (newest first)</option>
+    <option value="mktcap-desc">Market Cap (largest first)</option>
+    <option value="ticker-asc">Ticker (A–Z)</option>
+    <option value="sector-asc">Sector (A–Z)</option>
+  </select>
+  <span class="count-label" id="count-label">0 announcements</span>
+</div>
+
+<div class="table-wrap">
+  <table id="ann-table">
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Company</th>
+        <th>Mkt Cap</th>
+        <th>Sector</th>
+        <th style="text-align:right">Price</th>
+        <th>Announcement</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr><td colspan="7" class="empty">No price sensitive announcements found for today.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  Data sourced from ASX.com.au (announcements) and Yahoo Finance (market data). 
+  Price sensitive announcements only. Not financial advice.
+  Report generated 2:58 PM AEST · Thursday 12 March 2026
+</footer>
+
+<script>
+// Store original rows for filtering/sorting
+const allRows = Array.from(document.querySelectorAll('#table-body tr'));
+const rowData = allRows.map(r => ({
+  el: r,
+  ticker: r.querySelector('.td-ticker')?.textContent || '',
+  company: r.querySelector('.company-name')?.textContent || '',
+  headline: r.querySelector('.td-headline a')?.textContent || '',
+  sector: r.querySelector('.sector-badge')?.textContent || '',
+  mktcap: parseFloat(r.getAttribute('data-mktcap') || '0'),
+  time: r.getAttribute('data-time') || '',
+}));
+
+function filterTable() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const sec = document.getElementById('sector-filter').value.toLowerCase();
+  let visible = 0;
+  rowData.forEach(d => {
+    const match = (!q || (d.ticker+d.company+d.headline).toLowerCase().includes(q))
+                && (!sec || d.sector.toLowerCase().includes(sec));
+    d.el.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  document.getElementById('count-label').textContent = visible + ' announcements';
+}
+
+function sortTable() {
+  const [col, dir] = document.getElementById('sort-select').value.split('-');
+  const tbody = document.getElementById('table-body');
+  const rows = [...rowData].sort((a,b) => {
+    let av = a[col]||'', bv = b[col]||'';
+    if(col==='mktcap'){ av=parseFloat(av)||0; bv=parseFloat(bv)||0; }
+    if(av<bv) return dir==='asc'?-1:1;
+    if(av>bv) return dir==='asc'?1:-1;
+    return 0;
+  });
+  rows.forEach(r => tbody.appendChild(r.el));
+}
+</script>
+</body>
+</html>
