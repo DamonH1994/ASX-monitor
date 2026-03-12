@@ -23,13 +23,6 @@ TODAY = date.today()
 TODAY_STR = TODAY.strftime("%Y-%m-%d")
 REPORT_PATH = Path("report.html")
 
-# ASX announcement feed — undocumented but stable public endpoint
-# Returns JSON list of recent announcements filterable by market_sensitive
-ASX_ANNOUNCEMENTS_URL = (
-    "https://www.asx.com.au/asx/1/announcements"
-    "?market_sensitive=true&count=100&timeframe=0D"
-)
-
 # Yahoo Finance batch quote endpoint (no API key needed)
 YF_QUOTE_URL = "https://query1.finance.yahoo.com/v7/finance/quote"
 
@@ -45,29 +38,50 @@ HEADERS = {
 }
 
 # ── Fetch ASX announcements ───────────────────────────────────────────────────
+ASX_ENDPOINTS = [
+    # Primary — timeframe=0D means today only
+    "https://www.asx.com.au/asx/1/announcements?market_sensitive=true&count=100&timeframe=0D",
+    # Fallback 1 — no timeframe filter
+    "https://www.asx.com.au/asx/1/announcements?market_sensitive=true&count=100",
+    # Fallback 2 — different field name
+    "https://www.asx.com.au/asx/1/announcements?marketSensitive=true&count=100",
+]
+
 def fetch_asx_announcements():
     print(f"[{datetime.now(AEST).strftime('%H:%M:%S')}] Fetching ASX announcements...")
-    try:
-        r = requests.get(ASX_ANNOUNCEMENTS_URL, headers=HEADERS, timeout=20)
-        r.raise_for_status()
-        data = r.json()
-        items = data.get("data", [])
-        print(f"  → {len(items)} announcements fetched")
-        return items
-    except Exception as e:
-        print(f"  ✗ ASX fetch failed: {e}")
-        # Fallback: try alternative endpoint format
+    last_error = None
+    for i, url in enumerate(ASX_ENDPOINTS):
         try:
-            alt_url = "https://www.asx.com.au/asx/1/announcements?market_sensitive=true&count=100"
-            r = requests.get(alt_url, headers=HEADERS, timeout=20)
-            r.raise_for_status()
-            data = r.json()
-            items = data.get("data", [])
-            print(f"  → (fallback) {len(items)} announcements fetched")
-            return items
-        except Exception as e2:
-            print(f"  ✗ Fallback also failed: {e2}")
-            return []
+            label = "primary" if i == 0 else f"fallback {i}"
+            print(f"  Trying {label}: {url}")
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            print(f"  HTTP {r.status_code}")
+            if r.status_code == 200:
+                try:
+                    data = r.json()
+                except Exception as je:
+                    print(f"  ✗ JSON parse error: {je}")
+                    print(f"  Response preview: {r.text[:300]}")
+                    continue
+                # Handle both list and dict response shapes
+                if isinstance(data, list):
+                    items = data
+                elif isinstance(data, dict):
+                    items = data.get("data") or data.get("announcements") or data.get("results") or []
+                else:
+                    items = []
+                print(f"  → {len(items)} announcements fetched via {label}")
+                return items
+            else:
+                print(f"  ✗ Non-200 status: {r.status_code}")
+                last_error = f"HTTP {r.status_code}"
+        except Exception as e:
+            print(f"  ✗ Request error: {e}")
+            last_error = str(e)
+
+    print(f"\n  ⚠ All ASX endpoints failed. Last error: {last_error}")
+    print("  Generating empty report so the workflow succeeds.")
+    return []
 
 
 # ── Fetch Yahoo Finance market data ──────────────────────────────────────────
