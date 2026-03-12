@@ -44,58 +44,66 @@ def now_str():
 
 def fetch_all_price_sensitive():
     """
-    Page through the Markit API filtering to isPriceSensitive=true.
-    Returns all price sensitive announcements for today across ALL ASX companies.
+    Fetches today's price sensitive announcements using priceSensitiveOnly=true.
+    The API returns announcements sorted newest-first across ALL time, so we
+    page through until we hit items from yesterday (stopping early).
+    summaryCounts.priceSensitive tells us how many to expect today.
     """
-    print(f"\n[{now_str()}] Fetching price sensitive announcements from ASX/Markit API...")
-    all_items = []
-    page      = 0
+    print(f"\n[{now_str()}] Fetching price-sensitive announcements for {TODAY_STR}...")
+    all_ps_items = []
+    page         = 0
+    expected_today = None
 
     while True:
         params = {
-            "page":              page,
-            "itemsPerPage":      ITEMS_PER_PAGE,
-            "summaryCountsDate": TODAY_STR,
-            "includeFacets":     "true",
-            # no server-side filter — we filter client-side using isPriceSensitive field
+            "priceSensitiveOnly":  "true",
+            "page":                page,
+            "itemsPerPage":        ITEMS_PER_PAGE,
+            "summaryCountsDate":   TODAY_STR,
         }
         try:
             r = requests.get(MARKIT_BASE, params=params, headers=HEADERS, timeout=30)
             print(f"  Page {page}: HTTP {r.status_code}")
 
             if r.status_code != 200:
-                print(f"  → Non-200, stopping pagination. Body: {r.text[:300]}")
+                print(f"  → Non-200. Body: {r.text[:400]}")
                 break
 
-            data  = r.json()
-            items = data.get("data", {}).get("items", [])
-            total = data.get("data", {}).get("announcementCount") or data.get("data", {}).get("total") or 0
-
-            # Extract total from various possible fields
-            top = data.get("data", {})
-            total = (top.get("announcementCount")
-                     or top.get("total")
-                     or top.get("totalCount")
-                     or top.get("count")
-                     or 0)
+            data = r.json()
+            top  = data.get("data", {})
+            items = top.get("items", [])
 
             if page == 0:
-                # Print all top-level keys so we can see the real structure
-                print(f"  → data keys: {list(top.keys())}")
-                print(f"  → Total field value: {total}")
+                summary = top.get("summaryCounts", {})
+                expected_today = summary.get("priceSensitive", 0)
+                total_ever = top.get("count", "?")
+                print(f"  → API: {total_ever} total ever, {expected_today} price sensitive TODAY")
 
             if not items:
-                print(f"  → No more items on page {page}, done.")
+                print(f"  → Empty page, done.")
                 break
 
-            all_items.extend(items)
-            ps_so_far = sum(1 for i in all_items if i.get("isPriceSensitive"))
-            print(f"  → Page {page}: {len(items)} items ({ps_so_far} price sensitive so far, {len(all_items)} total fetched)")
+            # Items are newest-first; stop when we hit yesterday's announcements
+            hit_old = False
+            for item in items:
+                item_date = item.get("date", "")[:10]  # "2026-03-12"
+                if item_date == TODAY_STR:
+                    all_ps_items.append(item)
+                else:
+                    print(f"  → Hit item from {item_date}, stopping pagination.")
+                    hit_old = True
+                    break
 
-            # Stop if we have fetched everything
-            if total and len(all_items) >= total:
+            today_on_page = sum(1 for i in items if i.get("date","")[:10] == TODAY_STR)
+            print(f"  → Page {page}: {len(items)} items, {today_on_page} from today (running total: {len(all_ps_items)})")
+
+            if hit_old:
                 break
             if len(items) < ITEMS_PER_PAGE:
+                print(f"  → Last page reached.")
+                break
+            if expected_today and len(all_ps_items) >= expected_today:
+                print(f"  → Collected all {expected_today} expected announcements.")
                 break
 
             page += 1
@@ -105,13 +113,8 @@ def fetch_all_price_sensitive():
             print(f"  → Error on page {page}: {e}")
             break
 
-    # Filter strictly to today + price sensitive (API should already filter but double-check)
-    filtered = [
-        i for i in all_items
-        if i.get("isPriceSensitive") and TODAY_STR in str(i.get("date",""))
-    ]
-    print(f"  ✓ {len(filtered)} price sensitive announcements for {TODAY_STR}")
-    return filtered
+    print(f"  ✓ {len(all_ps_items)} price sensitive announcements for {TODAY_STR} (expected {expected_today})")
+    return all_ps_items
 
 
 def parse_item(raw):
