@@ -53,25 +53,25 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
     <div class="subtitle">Friday 13 March 2026 &nbsp;·&nbsp; All ASX companies &nbsp;·&nbsp; Enriched with price &amp; market cap</div>
   </div>
   <div class="stats">
-    <span>Generated 11:44 AM AEST</span>
+    <span>Generated 12:59 PM AEST</span>
     <div class="stat-row">
-      <div class="stat-block"><span class="stat-num" id="visCount">2</span>ANNOUNCEMENTS</div>
+      <div class="stat-block"><span class="stat-num" id="visCount">5</span>ANNOUNCEMENTS</div>
       <div class="stat-block"><span class="stat-num">0</span>WITH PRICE</div>
-      <div class="stat-block"><span class="stat-num">2</span>SECTORS</div>
+      <div class="stat-block"><span class="stat-num">4</span>SECTORS</div>
     </div>
   </div>
 </header>
 <div class="sectors-bar">
   <span class="sectors-label">Sectors</span>
-  <span class="sector-pill">Energy <strong>1</strong></span><span class="sector-pill">Communication Services <strong>1</strong></span>
+  <span class="sector-pill">Communication Services <strong>2</strong></span><span class="sector-pill">Industrials <strong>1</strong></span><span class="sector-pill">Financials <strong>1</strong></span><span class="sector-pill">Energy <strong>1</strong></span>
 </div>
 <div class="controls">
   <input type="search" id="searchBox" placeholder="Search ticker, company, headline..." oninput="filterTable()">
   <select id="sectorFilter" onchange="filterTable()">
     <option value="">All Sectors</option>
-    <option value="Communication Services">Communication Services</option><option value="Energy">Energy</option>
+    <option value="Communication Services">Communication Services</option><option value="Energy">Energy</option><option value="Financials">Financials</option><option value="Industrials">Industrials</option>
   </select>
-  <span class="count" id="countLabel">2 announcements</span>
+  <span class="count" id="countLabel">5 announcements</span>
 </div>
 <table>
 <thead>
@@ -82,6 +82,51 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 </thead>
 <tbody id="tableBody">
 
+        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067984-2A1660100','_blank')">
+          <td class="td-ticker">MPP</td>
+          <td class="td-company">
+            <div class="company-name">METRO PERFORMANCE GLASS LIMITED</div>
+            <div class="company-industry">Building Products</div>
+          </td>
+          <td><span class="mktcap micro">–</span></td>
+          <td><span class="sector-badge">Industrials</span></td>
+          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
+          <td class="td-headline">
+            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067984-2A1660100" target="_blank" onclick="event.stopPropagation()">Metro Performance Glass FY26 Market Update</a>
+            <span class="pages">202KB</span>
+          </td>
+          <td class="td-time">11:54 AM</td>
+        </tr>
+        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067975-2A1660095','_blank')">
+          <td class="td-ticker">ARC</td>
+          <td class="td-company">
+            <div class="company-name">ARC FUNDS LIMITED</div>
+            <div class="company-industry">Capital Markets</div>
+          </td>
+          <td><span class="mktcap micro">–</span></td>
+          <td><span class="sector-badge">Financials</span></td>
+          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
+          <td class="td-headline">
+            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067975-2A1660095" target="_blank" onclick="event.stopPropagation()">Pause in Trading</a>
+            <span class="pages">112KB</span>
+          </td>
+          <td class="td-time">11:29 AM</td>
+        </tr>
+        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067967-6A1316206','_blank')">
+          <td class="td-ticker">ASP</td>
+          <td class="td-company">
+            <div class="company-name">ASPERMONT LIMITED.</div>
+            <div class="company-industry">Media</div>
+          </td>
+          <td><span class="mktcap micro">–</span></td>
+          <td><span class="sector-badge">Communication Services</span></td>
+          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
+          <td class="td-headline">
+            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067967-6A1316206" target="_blank" onclick="event.stopPropagation()">Consolidation Timetable Update</a>
+            <span class="pages">154KB</span>
+          </td>
+          <td class="td-time">11:07 AM</td>
+        </tr>
         <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067942-2A1660035','_blank')">
           <td class="td-ticker">EMP</td>
           <td class="td-company">
@@ -116,7 +161,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 </table>
 <footer>
   Data: ASX / Markit Digital (announcements + sector) · Yahoo Finance (price &amp; market cap) ·
-  All ASX listed companies · Price sensitive only · Not financial advice · 11:44 AM AEST · Friday 13 March 2026
+  All ASX listed companies · Price sensitive only · Not financial advice · 12:59 PM AEST · Friday 13 March 2026
 </footer>
 <script>
 function filterTable(){
