@@ -3,75 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASX Price Sensitive — Friday 13 March 2026</title>
+<title>ASX Price Sensitive — Saturday 14 March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590;
-      --accent:#58a6ff;--green:#3fb950;--red:#f85149;}
+:root{
+  --bg:#ffffff;
+  --surface:#eef4fa;
+  --surface2:#ddeaf5;
+  --border:#c8d8e8;
+  --border-strong:#a0b8cc;
+  --text:#1a1a1a;
+  --muted:#5a6a7a;
+  --accent:#2a5a8a;
+  --accent-light:#4a7aaa;
+  --green:#1a6a3a;
+  --red:#8a1a1a;
+  --header-bg:#1a1a1a;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{padding:20px 24px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
-h1{font-size:22px;font-weight:700}h1 span{color:var(--accent)}
-.subtitle{font-size:12px;color:var(--muted);margin-top:4px}
-.stats{text-align:right;font-size:12px;color:var(--muted)}
-.stat-row{display:flex;gap:20px;justify-content:flex-end;margin-top:4px}
-.stat-block{text-align:center}.stat-num{font-size:20px;font-weight:700;color:var(--accent);display:block}
-.sectors-bar{padding:10px 24px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.sectors-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;margin-right:4px}
-.sector-pill{background:#21262d;border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:12px;cursor:pointer}
-.sector-pill:hover{border-color:var(--accent)}.sector-pill strong{color:var(--accent)}
-.controls{padding:10px 24px;display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--border);flex-wrap:wrap}
-input[type=search]{flex:1;min-width:200px;background:#21262d;border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 12px;font-size:13px;outline:none}
+body{background:var(--bg);color:var(--text);font:15px/1.6 'EB Garamond',Georgia,serif}
+/* ── Header ── */
+header{
+  background:var(--header-bg);
+  padding:18px 32px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px
+}
+.header-left{display:flex;flex-direction:column;gap:4px}
+h1{font-size:20px;font-weight:600;color:#ffffff;letter-spacing:0.02em;font-family:'EB Garamond',Georgia,serif}
+h1 em{font-style:italic;color:#aabbcc}
+.subtitle{font-size:12px;color:#888;letter-spacing:0.05em;font-family:Arial,sans-serif;font-style:normal}
+.header-right{display:flex;align-items:center;gap:24px}
+.stat-group{display:flex;gap:20px}
+.stat-block{text-align:center}
+.stat-num{font-size:22px;font-weight:600;color:#aabbcc;display:block;font-family:'EB Garamond',Georgia,serif}
+.stat-label{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:0.08em;font-family:Arial,sans-serif}
+.generated-time{font-size:11px;color:#666;font-family:Arial,sans-serif;text-align:right;margin-top:4px}
+/* ── Sector bar ── */
+.sectors-bar{
+  padding:10px 32px;background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center
+}
+.sectors-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;
+  white-space:nowrap;margin-right:6px;font-family:Arial,sans-serif}
+.sector-pill{
+  background:#fff;border:1px solid var(--border);border-radius:2px;
+  padding:2px 10px;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;color:var(--text)
+}
+.sector-pill:hover{border-color:var(--accent);background:var(--surface2)}
+.sector-pill strong{color:var(--accent);font-weight:600}
+/* ── Controls ── */
+.controls{
+  padding:10px 32px;display:flex;gap:10px;align-items:center;
+  border-bottom:1px solid var(--border);background:#fff;flex-wrap:wrap
+}
+input[type=search]{
+  flex:1;min-width:220px;background:#fff;border:1px solid var(--border);
+  border-radius:2px;color:var(--text);padding:7px 12px;font-size:13px;
+  outline:none;font-family:'EB Garamond',Georgia,serif
+}
 input[type=search]:focus{border-color:var(--accent)}
-select{background:#21262d;border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 10px;font-size:13px;outline:none}
-.count{font-size:12px;color:var(--muted);white-space:nowrap}
+select{
+  background:#fff;border:1px solid var(--border);border-radius:2px;
+  color:var(--text);padding:7px 10px;font-size:13px;outline:none;
+  font-family:'EB Garamond',Georgia,serif
+}
+.count{font-size:12px;color:var(--muted);white-space:nowrap;font-family:Arial,sans-serif}
+/* ── Table ── */
 table{width:100%;border-collapse:collapse}
-th{background:var(--surface);border-bottom:2px solid var(--border);padding:10px 12px;text-align:left;
-    font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid #21262d;vertical-align:top}
-tr:hover td{background:#161b22}tr{cursor:pointer}
-.td-ticker{font-weight:700;color:var(--accent);font-size:13px;white-space:nowrap}
-.company-name{font-weight:500;font-size:13px}.company-industry{font-size:11px;color:var(--muted)}
-.mktcap{border-radius:4px;padding:2px 8px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-block}
-.mktcap.large{background:#f0883e22;color:#f0883e}.mktcap.mid{background:#58a6ff22;color:#58a6ff}
-.mktcap.small{background:#3fb95022;color:#3fb950}.mktcap.micro{background:#7d859022;color:#7d8590}
-.sector-badge{background:#21262d;border-radius:4px;padding:2px 8px;font-size:11px;white-space:nowrap;display:inline-block}
-.td-price{white-space:nowrap;font-size:13px;min-width:70px}
+thead tr{background:var(--surface)}
+th{
+  border-bottom:2px solid var(--border-strong);border-top:1px solid var(--border);
+  padding:9px 14px;text-align:left;
+  font-size:10px;text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--muted);white-space:nowrap;font-family:Arial,sans-serif;font-weight:600
+}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:var(--surface)}
+tr:hover td{background:var(--surface2)!important}
+tr{cursor:pointer}
+.td-ticker{
+  font-weight:600;color:var(--accent);font-size:14px;
+  white-space:nowrap;font-family:'EB Garamond',Georgia,serif
+}
+.company-name{font-weight:500;font-size:14px}
+.company-industry{font-size:11px;color:var(--muted);font-family:Arial,sans-serif;margin-top:1px}
+.mktcap{
+  border-radius:2px;padding:2px 8px;font-size:11px;font-weight:600;
+  white-space:nowrap;display:inline-block;font-family:Arial,sans-serif
+}
+.mktcap.large{background:#fdf0e0;color:#7a4010;border:1px solid #e8c898}
+.mktcap.mid{background:#e0edf8;color:#1a4a7a;border:1px solid #a0c0dc}
+.mktcap.small{background:#e0f0e8;color:#1a5a30;border:1px solid #90c8a0}
+.mktcap.micro{background:#f0f0f0;color:#5a6a7a;border:1px solid #c8c8c8}
+.sector-badge{
+  background:var(--surface);border:1px solid var(--border);border-radius:2px;
+  padding:2px 8px;font-size:11px;white-space:nowrap;display:inline-block;
+  font-family:Arial,sans-serif;color:var(--muted)
+}
+.td-price{white-space:nowrap;font-size:14px;min-width:70px}
+.chg{font-size:12px;font-family:Arial,sans-serif}
 .chg.pos{color:var(--green)}.chg.neg{color:var(--red)}
-.td-headline a{color:var(--text);text-decoration:none;font-size:13px;line-height:1.4}
+.td-headline a{color:var(--text);text-decoration:none;font-size:14px;line-height:1.5}
 .td-headline a:hover{color:var(--accent);text-decoration:underline}
-.pages{margin-left:6px;background:#21262d;border-radius:3px;padding:1px 5px;font-size:11px;color:var(--muted)}
-.td-time{color:var(--muted);font-size:12px;white-space:nowrap}
-.empty{text-align:center;padding:60px 20px;color:var(--muted);font-family:monospace;line-height:2}
-footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+.pages{
+  margin-left:6px;background:var(--surface);border:1px solid var(--border);
+  border-radius:2px;padding:1px 5px;font-size:10px;color:var(--muted);
+  font-family:Arial,sans-serif
+}
+.td-time{color:var(--muted);font-size:12px;white-space:nowrap;font-family:Arial,sans-serif}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-style:italic;line-height:2.5}
+footer{
+  text-align:center;padding:20px;font-size:11px;color:var(--muted);
+  border-top:1px solid var(--border);margin-top:0;background:var(--surface);
+  font-family:Arial,sans-serif;letter-spacing:0.02em
+}
 .hidden{display:none!important}
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <h1><span>ASX</span> Price Sensitive Announcements</h1>
-    <div class="subtitle">Friday 13 March 2026 &nbsp;·&nbsp; All ASX companies &nbsp;·&nbsp; Enriched with price &amp; market cap</div>
+  <div class="header-left">
+    <h1>ASX Price Sensitive Announcements</h1>
+    <div class="subtitle">Saturday 14 March 2026 &nbsp;&nbsp;·&nbsp;&nbsp; All ASX companies &nbsp;&nbsp;·&nbsp;&nbsp; Enriched with price &amp; market cap</div>
   </div>
-  <div class="stats">
-    <span>Generated 12:59 PM AEST</span>
-    <div class="stat-row">
-      <div class="stat-block"><span class="stat-num" id="visCount">5</span>ANNOUNCEMENTS</div>
-      <div class="stat-block"><span class="stat-num">0</span>WITH PRICE</div>
-      <div class="stat-block"><span class="stat-num">4</span>SECTORS</div>
+  <div class="header-right">
+    <div>
+      <div class="stat-group">
+        <div class="stat-block"><span class="stat-num" id="visCount">0</span><span class="stat-label">Announcements</span></div>
+        <div class="stat-block"><span class="stat-num">0</span><span class="stat-label">With Price</span></div>
+        <div class="stat-block"><span class="stat-num">0</span><span class="stat-label">Sectors</span></div>
+      </div>
+      <div class="generated-time">Generated 4:36 PM AEST</div>
     </div>
+    <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" height="28" style="vertical-align:middle">
+      <rect width="80" height="32" rx="2" fill="#1a1a1a"/>
+      <text x="8" y="23" font-family="Georgia,serif" font-size="18" font-weight="700" fill="white" letter-spacing="1">ae</text>
+      <line x1="36" y1="6" x2="36" y2="26" stroke="#888" stroke-width="0.8"/>
+      <text x="42" y="14" font-family="Arial,sans-serif" font-size="7" fill="#aaa" letter-spacing="0.3">alignment.</text>
+      <text x="42" y="24" font-family="Arial,sans-serif" font-size="7" fill="#aaa" letter-spacing="0.3">execution.</text>
+    </svg></div>
   </div>
 </header>
 <div class="sectors-bar">
   <span class="sectors-label">Sectors</span>
-  <span class="sector-pill">Communication Services <strong>2</strong></span><span class="sector-pill">Industrials <strong>1</strong></span><span class="sector-pill">Financials <strong>1</strong></span><span class="sector-pill">Energy <strong>1</strong></span>
+  <span style="color:#7d8590">No announcements today</span>
 </div>
 <div class="controls">
-  <input type="search" id="searchBox" placeholder="Search ticker, company, headline..." oninput="filterTable()">
+  <input type="search" id="searchBox" placeholder="Search ticker, company or headline..." oninput="filterTable()">
   <select id="sectorFilter" onchange="filterTable()">
     <option value="">All Sectors</option>
-    <option value="Communication Services">Communication Services</option><option value="Energy">Energy</option><option value="Financials">Financials</option><option value="Industrials">Industrials</option>
+    
   </select>
-  <span class="count" id="countLabel">5 announcements</span>
+  <span class="count" id="countLabel">0 announcements</span>
 </div>
 <table>
 <thead>
@@ -81,87 +164,12 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   </tr>
 </thead>
 <tbody id="tableBody">
-
-        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067984-2A1660100','_blank')">
-          <td class="td-ticker">MPP</td>
-          <td class="td-company">
-            <div class="company-name">METRO PERFORMANCE GLASS LIMITED</div>
-            <div class="company-industry">Building Products</div>
-          </td>
-          <td><span class="mktcap micro">–</span></td>
-          <td><span class="sector-badge">Industrials</span></td>
-          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
-          <td class="td-headline">
-            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067984-2A1660100" target="_blank" onclick="event.stopPropagation()">Metro Performance Glass FY26 Market Update</a>
-            <span class="pages">202KB</span>
-          </td>
-          <td class="td-time">11:54 AM</td>
-        </tr>
-        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067975-2A1660095','_blank')">
-          <td class="td-ticker">ARC</td>
-          <td class="td-company">
-            <div class="company-name">ARC FUNDS LIMITED</div>
-            <div class="company-industry">Capital Markets</div>
-          </td>
-          <td><span class="mktcap micro">–</span></td>
-          <td><span class="sector-badge">Financials</span></td>
-          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
-          <td class="td-headline">
-            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067975-2A1660095" target="_blank" onclick="event.stopPropagation()">Pause in Trading</a>
-            <span class="pages">112KB</span>
-          </td>
-          <td class="td-time">11:29 AM</td>
-        </tr>
-        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067967-6A1316206','_blank')">
-          <td class="td-ticker">ASP</td>
-          <td class="td-company">
-            <div class="company-name">ASPERMONT LIMITED.</div>
-            <div class="company-industry">Media</div>
-          </td>
-          <td><span class="mktcap micro">–</span></td>
-          <td><span class="sector-badge">Communication Services</span></td>
-          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
-          <td class="td-headline">
-            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067967-6A1316206" target="_blank" onclick="event.stopPropagation()">Consolidation Timetable Update</a>
-            <span class="pages">154KB</span>
-          </td>
-          <td class="td-time">11:07 AM</td>
-        </tr>
-        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067942-2A1660035','_blank')">
-          <td class="td-ticker">EMP</td>
-          <td class="td-company">
-            <div class="company-name">EMPEROR ENERGY LIMITED</div>
-            <div class="company-industry">Oil, Gas &amp; Consumable Fuels</div>
-          </td>
-          <td><span class="mktcap micro">–</span></td>
-          <td><span class="sector-badge">Energy</span></td>
-          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
-          <td class="td-headline">
-            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067942-2A1660035" target="_blank" onclick="event.stopPropagation()">Successful $17.5M Placement</a>
-            <span class="pages">583KB</span>
-          </td>
-          <td class="td-time">10:18 AM</td>
-        </tr>
-        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067939-6A1316203','_blank')">
-          <td class="td-ticker">ICI</td>
-          <td class="td-company">
-            <div class="company-name">ICANDY INTERACTIVE LIMITED</div>
-            <div class="company-industry">Entertainment</div>
-          </td>
-          <td><span class="mktcap micro">–</span></td>
-          <td><span class="sector-badge">Communication Services</span></td>
-          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
-          <td class="td-headline">
-            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03067939-6A1316203" target="_blank" onclick="event.stopPropagation()">Potential US Listing of Lemon Sky and Corporate Update</a>
-            <span class="pages">246KB</span>
-          </td>
-          <td class="td-time">10:09 AM</td>
-        </tr>
+<tr><td colspan="7" class="empty">No price sensitive announcements found for Saturday 14 March 2026.<br><small>Run after 10am AEST on a trading day.</small></td></tr>
 </tbody>
 </table>
 <footer>
-  Data: ASX / Markit Digital (announcements + sector) · Yahoo Finance (price &amp; market cap) ·
-  All ASX listed companies · Price sensitive only · Not financial advice · 12:59 PM AEST · Friday 13 March 2026
+  Data: ASX / Markit Digital (announcements &amp; sector) &nbsp;·&nbsp; Yahoo Finance (price &amp; market cap) &nbsp;·&nbsp;
+  All ASX listed companies &nbsp;·&nbsp; Price sensitive only &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; 4:36 PM AEST &nbsp;·&nbsp; Saturday 14 March 2026
 </footer>
 <script>
 function filterTable(){
