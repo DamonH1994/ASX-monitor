@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASX Price Sensitive — Saturday 14 March 2026</title>
+<title>ASX Price Sensitive — Monday 16 March 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -124,16 +124,16 @@ footer{
 <header>
   <div class="header-left">
     <h1>ASX Price Sensitive Announcements</h1>
-    <div class="subtitle">Saturday 14 March 2026 &nbsp;&nbsp;·&nbsp;&nbsp; All ASX companies &nbsp;&nbsp;·&nbsp;&nbsp; Enriched with price &amp; market cap</div>
+    <div class="subtitle">Monday 16 March 2026 &nbsp;&nbsp;·&nbsp;&nbsp; All ASX companies &nbsp;&nbsp;·&nbsp;&nbsp; Enriched with price &amp; market cap</div>
   </div>
   <div class="header-right">
     <div>
       <div class="stat-group">
-        <div class="stat-block"><span class="stat-num" id="visCount">0</span><span class="stat-label">Announcements</span></div>
+        <div class="stat-block"><span class="stat-num" id="visCount">2</span><span class="stat-label">Announcements</span></div>
         <div class="stat-block"><span class="stat-num">0</span><span class="stat-label">With Price</span></div>
-        <div class="stat-block"><span class="stat-num">0</span><span class="stat-label">Sectors</span></div>
+        <div class="stat-block"><span class="stat-num">2</span><span class="stat-label">Sectors</span></div>
       </div>
-      <div class="generated-time">Generated 4:36 PM AEST</div>
+      <div class="generated-time">Generated 1:23 PM AEST</div>
     </div>
     <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" height="28" style="vertical-align:middle">
       <rect width="80" height="32" rx="2" fill="#1a1a1a"/>
@@ -146,15 +146,15 @@ footer{
 </header>
 <div class="sectors-bar">
   <span class="sectors-label">Sectors</span>
-  <span style="color:#7d8590">No announcements today</span>
+  <span class="sector-pill">Materials <strong>1</strong></span><span class="sector-pill">Industrials <strong>1</strong></span>
 </div>
 <div class="controls">
   <input type="search" id="searchBox" placeholder="Search ticker, company or headline..." oninput="filterTable()">
   <select id="sectorFilter" onchange="filterTable()">
     <option value="">All Sectors</option>
-    
+    <option value="Industrials">Industrials</option><option value="Materials">Materials</option>
   </select>
-  <span class="count" id="countLabel">0 announcements</span>
+  <span class="count" id="countLabel">2 announcements</span>
 </div>
 <table>
 <thead>
@@ -164,12 +164,42 @@ footer{
   </tr>
 </thead>
 <tbody id="tableBody">
-<tr><td colspan="7" class="empty">No price sensitive announcements found for Saturday 14 March 2026.<br><small>Run after 10am AEST on a trading day.</small></td></tr>
+
+        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03068689-6A1316534','_blank')">
+          <td class="td-ticker">FRS</td>
+          <td class="td-company">
+            <div class="company-name">FORRESTANIA RESOURCES LIMITED</div>
+            <div class="company-industry">Metals &amp; Mining</div>
+          </td>
+          <td><span class="mktcap micro">–</span></td>
+          <td><span class="sector-badge">Materials</span></td>
+          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
+          <td class="td-headline">
+            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03068689-6A1316534" target="_blank" onclick="event.stopPropagation()">Completion of Jaurdi Hills Acquisition</a>
+            <span class="pages">534KB</span>
+          </td>
+          <td class="td-time">10:36 AM</td>
+        </tr>
+        <tr onclick="window.open('https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03068681-6A1316530','_blank')">
+          <td class="td-ticker">KLV</td>
+          <td class="td-company">
+            <div class="company-name">KLEVO REWARDS LIMITED</div>
+            <div class="company-industry">Professional Services</div>
+          </td>
+          <td><span class="mktcap micro">–</span></td>
+          <td><span class="sector-badge">Industrials</span></td>
+          <td class="td-price"><div>–</div><div class="chg pos"></div></td>
+          <td class="td-headline">
+            <a href="https://www.asx.com.au/asx/statistics/displayAnnouncement.do?display=pdf&amp;idsId=2924-03068681-6A1316530" target="_blank" onclick="event.stopPropagation()">Fly Wallet Approved as SWIFT User</a>
+            <span class="pages">81KB</span>
+          </td>
+          <td class="td-time">10:07 AM</td>
+        </tr>
 </tbody>
 </table>
 <footer>
   Data: ASX / Markit Digital (announcements &amp; sector) &nbsp;·&nbsp; Yahoo Finance (price &amp; market cap) &nbsp;·&nbsp;
-  All ASX listed companies &nbsp;·&nbsp; Price sensitive only &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; 4:36 PM AEST &nbsp;·&nbsp; Saturday 14 March 2026
+  All ASX listed companies &nbsp;·&nbsp; Price sensitive only &nbsp;·&nbsp; Not financial advice &nbsp;·&nbsp; 1:23 PM AEST &nbsp;·&nbsp; Monday 16 March 2026
 </footer>
 <script>
 function filterTable(){
